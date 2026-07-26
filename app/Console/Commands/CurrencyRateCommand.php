@@ -2,6 +2,7 @@
 
 namespace App\Console\Commands;
 
+use App\Models\ExchangeRates;
 use Carbon\Carbon;
 use Illuminate\Console\Attributes\Description;
 use Illuminate\Console\Attributes\Signature;
@@ -24,8 +25,21 @@ class CurrencyRateCommand extends Command
 
         $this->info("Currency: {$data['base']}");
         $this->info("Updated: " . $date->format('d.m.Y H:i:s'));
-        $this->info("USD/EUR exchange rate:: {$data['rates']['EUR']} EUR");
-        $this->info("USD/BAM exchange rate:: {$data['rates']['BAM']} KM");
-        $this->info("USD/RSD exchange rate:: {$data['rates']['RSD']} DIN");
+
+        foreach (ExchangeRates::AVAILABLE_CURRENCY as $currency) {
+
+            $todayCurrency = ExchangeRates::getCurrencyForToday($currency);
+
+            if ($todayCurrency !== null) {
+                continue;
+            }
+
+            ExchangeRates::create([
+                'currency' => $currency,
+                'value' => $data['rates'][$currency],
+            ]);
+
+            $this->info("USD/$currency exchange rate: {$data['rates'][$currency]} $currency");
+        }
     }
 }
