@@ -3,10 +3,14 @@
 namespace App\Http\Controllers;
 
 use App\Models\Contact;
+use App\Repositories\ContactRepository;
 use Illuminate\Http\Request;
 
 class ContactController extends Controller
 {
+    public function __construct(
+        private ContactRepository $contactRepository
+    ){}
     public function index()
     {
         return view('contact');
@@ -14,7 +18,7 @@ class ContactController extends Controller
 
     public function getAllContacts()
     {
-        $allContacts = Contact::all();
+        $allContacts = $this->contactRepository->all();
 
         return view('all-contacts', compact('allContacts'));
     }
@@ -27,16 +31,9 @@ class ContactController extends Controller
             'message' => 'required|string|min:5|max:1000'
         ]);
 
-        Contact::create($validated);
+        $this->contactRepository->create($validated);
 
         return redirect()->back()->with('success', 'Poruka je uspesno poslata.');
-    }
-
-    public function deleteContact(Contact $contact)
-    {
-        $contact->delete();
-
-        return redirect()->back();
     }
 
     public function getContact(Contact $contact)
@@ -52,8 +49,15 @@ class ContactController extends Controller
             'message' => 'required|string|min:5|max:1000'
         ]);
 
-        $contact->update($validated);
+        $this->contactRepository->update($contact, $validated);
 
         return redirect()->route('all.contacts');
+    }
+
+    public function deleteContact(Contact $contact)
+    {
+        $this->contactRepository->delete($contact);
+
+        return redirect()->back();
     }
 }
