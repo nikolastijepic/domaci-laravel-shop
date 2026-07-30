@@ -11,6 +11,13 @@ class ProductRepository
         return Product::all();
     }
 
+    public function getLatestProducts()
+    {
+        return Product::latest('id')
+            ->take(6)
+            ->get();
+    }
+
     public function create(array $validated)
     {
         return Product::create($validated);
