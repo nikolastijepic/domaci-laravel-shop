@@ -2,6 +2,8 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\StoreContactRequest;
+use App\Http\Requests\UpdateContactRequest;
 use App\Models\Contact;
 use App\Repositories\ContactRepository;
 use Illuminate\Http\Request;
@@ -23,13 +25,9 @@ class ContactController extends Controller
         return view('all-contacts', compact('allContacts'));
     }
 
-    public function sendContact(Request $request)
+    public function sendContact(StoreContactRequest $request)
     {
-        $validated = $request->validate([
-            'email' => 'required|email|max:255',
-            'subject' => 'required|string|min:3|max:100',
-            'message' => 'required|string|min:5|max:1000'
-        ]);
+        $validated = $request->validated();
 
         $this->contactRepository->create($validated);
 
@@ -41,13 +39,9 @@ class ContactController extends Controller
         return view('edit-contact', compact('contact'));
     }
 
-    public function editContact(Request $request, Contact $contact)
+    public function editContact(UpdateContactRequest $request, Contact $contact)
     {
-        $validated = $request->validate([
-            'email' => 'required|email|max:255',
-            'subject' => 'required|string|min:3|max:100',
-            'message' => 'required|string|min:5|max:1000'
-        ]);
+        $validated = $request->validated();
 
         $this->contactRepository->update($contact, $validated);
 
