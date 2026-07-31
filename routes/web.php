@@ -15,20 +15,20 @@ Route::get('/contact', [ContactController::class, 'index']);
 Route::post('/send-contact', [ContactController::class, 'sendContact'])->name('contact.send');
 
 Route::middleware(['auth', AdminCheckMiddleware::class])->prefix('admin')->group(function () {
-    Route::controller(ContactController::class)->group(function () {
-        Route::get('/all-contacts', 'getAllContacts')->name('all.contacts');
-        Route::get('delete-contact/{contact}', 'deleteContact')->name('admin.contact.delete');
-        Route::get('/edit-contact/{contact}', 'getContact')->name('admin.contact.edit');
-        Route::post('/edit-contact/{contact}', 'editContact')->name('admin.contact.update');
+    Route::controller(ContactController::class)->prefix('/contact')->group(function () {
+        Route::get('/all', 'getAllContacts')->name('all.contacts');
+        Route::get('delete/{contact}', 'deleteContact')->name('admin.contact.delete');
+        Route::get('/edit/{contact}', 'getContact')->name('admin.contact.edit');
+        Route::post('/edit/{contact}', 'editContact')->name('admin.contact.update');
     });
 
-    Route::controller(ProductController::class)->group(function () {
-        Route::get('/add-products', 'index');
-        Route::post('/add-products', 'addProduct')->name('admin.product.add');
-        Route::get('/all-products', 'getAllProducts')->name('admin.all.products');
-        Route::get('/delete-product/{product}', 'deleteProduct')->name('admin.product.delete');
-        Route::get('/edit-product/{product}', 'getProduct')->name('admin.product.edit');
-        Route::post('/edit-product/{product}', 'editProduct')->name('admin.product.update');
+    Route::controller(ProductController::class)->prefix('/product')->group(function () {
+        Route::get('/add', 'index')->name('admin.product.add.index');
+        Route::post('/add', 'addProduct')->name('admin.product.add');
+        Route::get('/all', 'getAllProducts')->name('admin.all.products');
+        Route::get('/delete/{product}', 'deleteProduct')->name('admin.product.delete');
+        Route::get('/edit/{product}', 'getProduct')->name('admin.product.edit');
+        Route::post('/edit/{product}', 'editProduct')->name('admin.product.update');
     });
 });
 
