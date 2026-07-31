@@ -10,10 +10,10 @@
                     <a class="nav-link {{ request()->routeIs('admin.product.add.index') ? 'active' : '' }}" href="{{ route('admin.product.add.index') }}">Add Products</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link {{ request()->routeIs('admin.all.products') ? 'active' : '' }}" href="{{ route('admin.all.products') }}">All Products</a>
+                    <a class="nav-link {{ request()->routeIs('admin.product.all') ? 'active' : '' }}" href="{{ route('admin.product.all') }}">All Products</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link {{ request()->routeIs('all.contacts') ? 'active' : '' }}" href="{{ route('all.contacts') }}">All Contacts</a>
+                    <a class="nav-link {{ request()->routeIs('admin.contact.all') ? 'active' : '' }}" href="{{ route('admin.contact.all') }}">All Contacts</a>
                 </li>
             </ul>
         </div>

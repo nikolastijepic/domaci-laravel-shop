@@ -27,7 +27,7 @@ class ProductController extends Controller
 
         $product = $this->productRepository->create($validated);
 
-        return redirect()->route('admin.all.products')
+        return redirect()->route('admin.product.all')
             ->with('success', 'Proizvod je uspesno dodat.')
             ->with('new_product_id', $product->id);
     }
@@ -43,7 +43,7 @@ class ProductController extends Controller
 
         $this->productRepository->update($product, $validated);
 
-        return redirect()->route('admin.all.products');
+        return redirect()->route('admin.product.all');
     }
 
     public function deleteProduct(Product $product)

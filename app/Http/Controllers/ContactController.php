@@ -44,7 +44,7 @@ class ContactController extends Controller
 
         $this->contactRepository->update($contact, $validated);
 
-        return redirect()->route('all.contacts');
+        return redirect()->route('admin.contact.all');
     }
 
     public function deleteContact(Contact $contact)
