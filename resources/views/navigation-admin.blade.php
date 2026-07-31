@@ -7,13 +7,13 @@
         <div class="collapse navbar-collapse justify-content-md-center" id="navbarNav">
             <ul class="navbar-nav gap-3">
                 <li class="nav-item">
-                    <a class="nav-link {{ request()->is('admin/add-products') ? 'active' : '' }}" href="/admin/add-products">Add Products</a>
+                    <a class="nav-link {{ request()->routeIs('admin.product.add.index') ? 'active' : '' }}" href="{{ route('admin.product.add.index') }}">Add Products</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link {{ request()->is('admin/all-products') ? 'active' : '' }}" href="/admin/all-products">All Products</a>
+                    <a class="nav-link {{ request()->routeIs('admin.all.products') ? 'active' : '' }}" href="{{ route('admin.all.products') }}">All Products</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link {{ request()->is('admin/all-contacts') ? 'active' : '' }}" href="/admin/all-contacts">All Contacts</a>
+                    <a class="nav-link {{ request()->routeIs('all.contacts') ? 'active' : '' }}" href="{{ route('all.contacts') }}">All Contacts</a>
                 </li>
             </ul>
         </div>
