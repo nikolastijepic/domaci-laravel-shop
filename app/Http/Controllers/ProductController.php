@@ -2,6 +2,8 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\StoreProductRequest;
+use App\Http\Requests\UpdateProductRequest;
 use App\Models\Product;
 use App\Repositories\ProductRepository;
 use Illuminate\Http\Request;
@@ -20,15 +22,9 @@ class ProductController extends Controller
         return view('all-products', compact('products'));
     }
 
-    public function addProduct(Request $request)
+    public function addProduct(StoreProductRequest $request)
     {
-        $validated = $request->validate([
-            'name' => 'required|string|min:3|max:64|unique:products',
-            'description' => 'required|string|min:10|max:500',
-            'amount' => 'required|integer|min:1|max:100000',
-            'price' => 'required|numeric|min:0.01',
-            'image' => 'required|string',
-            ]);
+        $validated = $request->validated();
 
         $product = $this->productRepository->create($validated);
 
@@ -42,15 +38,9 @@ class ProductController extends Controller
        return view('edit-product', compact('product'));
     }
 
-    public function editProduct(Request $request, Product $product)
+    public function editProduct(UpdateProductRequest $request, Product $product)
     {
-        $validated = $request->validate([
-            'name' => 'required|string|min:3|max:64|unique:products,name,'.$product->id,
-            'description' => 'required|string|min:10|max:500',
-            'amount' => 'required|integer|min:1|max:100000',
-            'price' => 'required|numeric|min:0.01',
-            'image' => 'required|string',
-        ]);
+        $validated = $request->validated();
 
         $this->productRepository->update($product, $validated);
 
