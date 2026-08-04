@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Product;
 use App\Repositories\ProductRepository;
 
 class ShopController extends Controller
@@ -15,5 +16,10 @@ class ShopController extends Controller
         $products = $this->productRepository->all();
 
         return view('shop', compact('products'));
+    }
+
+    public function show(Product $product)
+    {
+        return view('product', compact('product'));
     }
 }
