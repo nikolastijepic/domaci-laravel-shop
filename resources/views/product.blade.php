@@ -1,17 +1,13 @@
 @extends('layout')
 
 @section('pageTitle')
-    Product
+    Product - {{ $product->name }}
 @endsection
 
 @section('pageContent')
 
     <div class="container py-5">
-
         <div class="row g-5">
-
-            {{-- Slika proizvoda --}}
-
             <div class="col-lg-5">
                 <img
                     src="https://placehold.co/300x300?text=Product"
