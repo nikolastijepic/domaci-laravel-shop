@@ -8,7 +8,8 @@ export default defineConfig({
                 'resources/css/app.css',
                 'resources/js/app.js',
                 'resources/css/bootstrap-app.css',
-                'resources/js/bootstrap-app.js'
+                'resources/js/bootstrap-app.js',
+                'resources/css/fontawesome-app.css',
             ],
             refresh: true,
         }),
