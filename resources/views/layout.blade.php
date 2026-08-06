@@ -14,7 +14,7 @@
 
         document.documentElement.setAttribute('data-bs-theme', theme);
     </script>
-    @vite(['resources/css/bootstrap-app.css', 'resources/js/bootstrap-app.js'])
+    @vite(['resources/css/bootstrap-app.css', 'resources/js/bootstrap-app.js', 'resources/css/fontawesome-app.css'])
     <title>@yield('pageTitle')</title>
 </head>
 <body>

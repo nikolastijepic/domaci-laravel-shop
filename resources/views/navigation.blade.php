@@ -21,6 +21,12 @@
             </ul>
         </div>
         <div class="d-flex align-items-center gap-2">
+            <div class="me-5">
+                <a class="nav-link"
+                   href="{{ route('shop.cart.index') }}">
+                    <i class="fa-solid fa-cart-shopping {{ request()->routeIs('shop.cart.*') ? 'text-primary' : '' }}"></i>
+                </a>
+            </div>
             <label for="themeSwitch" class="m-0">
                 <i id="themeIcon" class="bi bi-sun-fill fs-5"></i>
             </label>

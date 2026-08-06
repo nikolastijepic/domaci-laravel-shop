@@ -13,7 +13,7 @@
                     <div class="card h-100 shadow-sm">
                         <div>
                             <img
-                                src="https://placehold.co/300x300?text=Product"
+                                src="https://placehold.co/300x300/fb7f33/white?text={{ $product->name }}&font=Raleway"
                                 class="card-img-top"
                                 alt="{{ $product->name }}">
                         </div>
@@ -22,7 +22,7 @@
                                 {{ $product->name }}
                             </h5>
                             <p class="card-text fw-bold fs-5">
-                                {{ $product->price }} €
+                                {{ $product->price }} &euro;
                             </p>
                         </div>
                         <div class="card-footer border-0">

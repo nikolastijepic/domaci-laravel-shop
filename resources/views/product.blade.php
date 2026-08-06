@@ -10,7 +10,7 @@
         <div class="row g-5">
             <div class="col-lg-5">
                 <img
-                    src="https://placehold.co/300x300?text=Product"
+                    src="https://placehold.co/600x600/fb7f33/white?text={{ $product->name }}&font=Raleway"
                     class="card-img-top"
                     alt="{{ $product->name }}">
             </div>
@@ -21,7 +21,7 @@
                 </h1>
 
                 <h2 class="text-primary mb-4">
-                    {{ $product->price }} €
+                    {{ $product->price }} &euro;
                 </h2>
 
                 @if($product->amount > 0)
@@ -40,9 +40,27 @@
                     {{ $product->description }}
                 </p>
 
-                <a href="#" class="btn btn-primary btn-lg mt-3">
-                    Add to cart
-                </a>
+                <div>
+
+                    @error('quantity')
+                    <div class="text-danger mt-2 mb-3">{{ $message }}</div>
+                    @enderror
+
+                    <form method="POST" action="{{ route('shop.cart.add') }}">
+                        @csrf
+                        <div class="d-flex align-items-center">
+                            <input type="hidden" name="product_id" value="{{ $product->id }}">
+
+                            <select name="quantity" class="form-select w-auto">
+                                @for ($i = 1; $i <= $product->amount; $i++)
+                                    <option value="{{ $i }}">{{ $i }}</option>
+                                @endfor
+                            </select>
+
+                            <button type="submit" class="btn btn-primary btn-lg ms-3">Add to cart</button>
+                        </div>
+                    </form>
+                </div>
             </div>
         </div>
     </div>
