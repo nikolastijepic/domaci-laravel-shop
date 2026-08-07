@@ -22,9 +22,9 @@
         </div>
         <div class="d-flex align-items-center gap-2">
             <div class="me-5">
-                <a class="nav-link"
+                <a class="nav-link {{ request()->is('shop/cart*') ? 'active' : '' }}"
                    href="{{ route('shop.cart.index') }}">
-                    <i class="fa-solid fa-cart-shopping {{ request()->routeIs('shop.cart.*') ? 'text-primary' : '' }}"></i>
+                    <i class="fa-solid fa-cart-shopping {{ request()->is('shop/cart*') ? 'text-white' : 'text-white opacity-50' }}"></i>
                 </a>
             </div>
             <label for="themeSwitch" class="m-0">
