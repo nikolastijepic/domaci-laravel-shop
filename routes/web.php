@@ -15,7 +15,7 @@ Route::controller(ShopController::class)
     ->prefix('/shop')
     ->name('shop.')
     ->group(function () {
-        Route::get('/', 'index');
+        Route::get('/', 'index')->name('index');
         Route::get('/product/{product}', 'show')->name('product.show');
 
         Route::controller(ShoppingCartController::class)
@@ -24,6 +24,7 @@ Route::controller(ShopController::class)
             ->group(function () {
                 Route::get('/', 'index')->name('index');
                 Route::post('/add', 'addToCart')->name('add');
+                Route::delete('/remove/{product}', 'removeFromCart')->name('remove');
         });
 });
 

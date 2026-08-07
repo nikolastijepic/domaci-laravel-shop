@@ -5,7 +5,15 @@
 @endsection
 
 @section('pageContent')
+
     <div class="container py-5">
+
+        @if(session('success'))
+            <div class="alert alert-success">
+                {{ session('success') }}
+            </div>
+        @endif
+
         <h1 class="mb-4">
             Shopping Cart
         </h1>
@@ -50,9 +58,11 @@
                                     </div>
 
                                     <div class="col-md-2 text-end">
-                                        <button class="btn btn-outline-danger">
-                                            Remove
-                                        </button>
+                                        <form action="{{ route('shop.cart.remove', $product->id) }}" method="POST">
+                                            @csrf
+                                            @method('DELETE')
+                                            <button class="btn btn-sm btn-danger">Remove</button>
+                                        </form>
                                     </div>
                                 </div>
                             </div>
@@ -63,11 +73,9 @@
                     <div class="text-center py-5">
                         <h3>Your cart is empty</h3>
                         <p>Go to shop to add products</p>
-                        <a href="{{ url('/shop') }}" class="btn btn-primary mt-3">Go to Shop</a>
+                        <a href="{{ route('shop.index') }}" class="btn btn-primary mt-3">Go to Shop</a>
                     </div>
                 @endif
-
-
 
             </div>
             <div class="col-lg-4">

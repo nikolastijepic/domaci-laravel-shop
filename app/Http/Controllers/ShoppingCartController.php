@@ -46,4 +46,13 @@ class ShoppingCartController extends Controller
 
         return redirect()->route('shop.cart.index');
     }
+
+    public function removeFromCart($product)
+    {
+        $cart = session()->get('cart', []);
+        unset($cart[$product]);
+        session()->put('cart', $cart);
+
+        return redirect()->back()->with('success', 'Product removed');
+    }
 }
