@@ -12,52 +12,62 @@
         <div class="row">
             <div class="col-lg-8">
 
-            @foreach($products as $product)
+                @if(count($products) > 0)
+                    @foreach($products as $product)
 
-                    <div class="card shadow-sm mb-3">
-                        <div class="card-body">
-                            <div class="row align-items-center">
-                                <div class="col-md-2">
-                                    <img
-                                        src="https://placehold.co/150x150/fb7f33/white?text={{ $product->name }}&font=Raleway"
-                                        class="img-fluid rounded"
-                                        alt="Product">
-                                </div>
+                        <div class="card shadow-sm mb-3">
+                            <div class="card-body">
+                                <div class="row align-items-center">
+                                    <div class="col-md-2">
+                                        <img
+                                            src="https://placehold.co/150x150/fb7f33/white?text={{ $product->name }}&font=Raleway"
+                                            class="img-fluid rounded"
+                                            alt="Product">
+                                    </div>
 
-                                <div class="col-md-4">
-                                    <h5 class="mb-1">
-                                        {{ $product->name }}
-                                    </h5>
-                                    <p class="text-muted mb-0">
-                                        {{ $product->description }}
-                                    </p>
-                                </div>
+                                    <div class="col-md-4">
+                                        <h5 class="mb-1">
+                                            {{ $product->name }}
+                                        </h5>
+                                        <p class="text-muted mb-0">
+                                            {{ $product->description }}
+                                        </p>
+                                    </div>
 
-                                <div class="col-md-2 text-center">
-                                    <strong>
-                                        {{ $product->price }} &euro;
-                                    </strong>
-                                </div>
+                                    <div class="col-md-2 text-center">
+                                        <strong>
+                                            {{ $product->price }} &euro;
+                                        </strong>
+                                    </div>
 
-                                <div class="col-md-2">
-                                    <input
-                                        type="number"
-                                        class="form-control"
-                                        min="1"
-                                        max="{{ $product->amount }}"
-                                        value="{{ $cart[$product->id] }}">
-                                </div>
+                                    <div class="col-md-2">
+                                        <input
+                                            type="number"
+                                            class="form-control"
+                                            min="1"
+                                            max="{{ $product->amount }}"
+                                            value="{{ $cart[$product->id] }}">
+                                    </div>
 
-                                <div class="col-md-2 text-end">
-                                    <button class="btn btn-outline-danger">
-                                        Remove
-                                    </button>
+                                    <div class="col-md-2 text-end">
+                                        <button class="btn btn-outline-danger">
+                                            Remove
+                                        </button>
+                                    </div>
                                 </div>
                             </div>
                         </div>
-                    </div>
 
-            @endforeach
+                    @endforeach
+                @else
+                    <div class="text-center py-5">
+                        <h3>Your cart is empty</h3>
+                        <p>Go to shop to add products</p>
+                        <a href="{{ url('/shop') }}" class="btn btn-primary mt-3">Go to Shop</a>
+                    </div>
+                @endif
+
+
 
             </div>
             <div class="col-lg-4">
@@ -74,16 +84,22 @@
 
                         <div class="d-flex justify-content-between mb-2">
                             <span>Subtotal</span>
-                            <span>€1,699.97</span>
+                            <span>{{ $subtotal }}</span>
                         </div>
                         <div class="d-flex justify-content-between mb-3">
                             <span>Shipping</span>
-                            <span>Free</span>
+                            <span>
+                                @if($shipping == 0)
+                                    Free
+                                    @else
+                                        {{ $shipping }} &euro;
+                                @endif
+                            </span>
                         </div>
                         <hr>
                         <div class="d-flex justify-content-between fs-5 fw-bold mb-4">
                             <span>Total</span>
-                            <span>€1,699.97</span>
+                            <span>{{ $total }} &euro;</span>
                         </div>
 
                         <button class="btn btn-success w-100 btn-lg">

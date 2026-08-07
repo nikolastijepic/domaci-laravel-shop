@@ -15,7 +15,16 @@ class ShoppingCartController extends Controller
         $productIds = array_keys($cart);
         $products = Product::whereIn('id', $productIds)->get();
 
-        return view('cart', compact('cart', 'products'));
+        $subtotal = 0;
+
+        foreach ($products as $product) {
+            $subtotal += $product->price * $cart[$product->id];
+        }
+
+        $shipping = 0;
+        $total = $subtotal + $shipping;
+
+        return view('cart', compact('cart', 'products', 'subtotal', 'shipping', 'total',));
     }
     public function addToCart(CartAddRequest $request)
     {
