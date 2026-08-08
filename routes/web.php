@@ -24,6 +24,7 @@ Route::controller(ShopController::class)
             ->group(function () {
                 Route::get('/', 'index')->name('index');
                 Route::post('/add', 'addToCart')->name('add');
+                Route::patch('/update/{product}', 'updateCart')->name('update');
                 Route::delete('/remove/{product}', 'removeFromCart')->name('remove');
         });
 });

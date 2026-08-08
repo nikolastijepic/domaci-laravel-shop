@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Http\Requests\CartAddRequest;
+use App\Http\Requests\CartUpdateRequest;
 use App\Models\Product;
 use Illuminate\Support\Facades\Session;
 
@@ -46,6 +47,16 @@ class ShoppingCartController extends Controller
 
         return redirect()->route('shop.cart.index');
     }
+
+    public function updateCart(CartUpdateRequest $request, $product)
+    {
+        $cart = session()->get('cart', []);
+        $cart[$product] = $request->quantity;
+        session()->put('cart', $cart);
+
+        return redirect()->back()->with('success', 'Cart updated');
+    }
+
 
     public function removeFromCart($product)
     {

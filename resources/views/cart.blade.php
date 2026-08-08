@@ -26,7 +26,7 @@
                         <div class="card shadow-sm mb-3">
                             <div class="card-body">
                                 <div class="row align-items-center">
-                                    <div class="col-md-2">
+                                    <div class="col-md-1">
                                         <img
                                             src="https://placehold.co/150x150/fb7f33/white?text={{ $product->name }}&font=Raleway"
                                             class="img-fluid rounded"
@@ -48,13 +48,22 @@
                                         </strong>
                                     </div>
 
-                                    <div class="col-md-2">
-                                        <input
-                                            type="number"
-                                            class="form-control"
-                                            min="1"
-                                            max="{{ $product->amount }}"
-                                            value="{{ $cart[$product->id] }}">
+                                    <div class="col-md-3">
+                                        <form action="{{ route('shop.cart.update', $product->id) }}" method="POST" class="d-flex gap-1">
+                                            @csrf
+                                            @method('PATCH')
+                                            <input
+                                                type="number"
+                                                name="quantity"
+                                                class="form-control"
+                                                min="1"
+                                                max="{{ $product->amount }}"
+                                                value="{{ $cart[$product->id] }}">
+                                            <button class="btn btn-sm btn-outline-primary">Update</button>
+                                        </form>
+                                        @error('quantity_'.$product->id)
+                                        <small class="text-danger">{{ $message }}</small>
+                                        @enderror
                                     </div>
 
                                     <div class="col-md-2 text-end">
