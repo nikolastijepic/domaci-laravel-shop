@@ -24,7 +24,7 @@
             <div class="me-5">
                 <a class="nav-link {{ request()->is('shop/cart*') ? 'active' : '' }}"
                    href="{{ route('shop.cart.index') }}">
-                    <i class="fa-solid fa-cart-shopping {{ request()->is('shop/cart*') ? 'text-white' : 'text-white opacity-50' }}"></i>
+                    <i id="cartIcon" class="fa-solid fa-cart-shopping fs-5 {{ request()->is('shop/cart*') ? '' : 'opacity-50' }}"></i>
                 </a>
             </div>
             <label for="themeSwitch" class="m-0">

@@ -3,6 +3,8 @@ import * as bootstrap from 'bootstrap';
 window.bootstrap = bootstrap;
 
 const switcher = document.getElementById('themeSwitch');
+const cartIcon = document.getElementById('cartIcon');
+const themeIcon = document.getElementById('themeIcon');
 
 if (switcher) {
     const savedTheme = localStorage.getItem('theme');
@@ -16,26 +18,41 @@ if (switcher) {
     document.documentElement.setAttribute('data-bs-theme', theme);
     switcher.checked = theme === 'dark';
 
-    updateThemeIcon(theme);
+    updateTheme(theme);
 
     switcher.addEventListener('change', function () {
-        const theme = this.checked ? 'dark' : 'light';
+        const newTheme = this.checked ? 'dark' : 'light';
 
-        document.documentElement.setAttribute('data-bs-theme', theme);
-        localStorage.setItem('theme', theme);
+        document.documentElement.setAttribute('data-bs-theme', newTheme);
+        localStorage.setItem('theme', newTheme);
 
-        updateThemeIcon(theme);
+        updateTheme(newTheme);
     });
 }
 
-function updateThemeIcon(theme) {
-    const icon = document.getElementById('themeIcon');
+function updateTheme(theme) {
+    updateThemeIcon(theme);
+    updateCartIcon(theme);
+}
 
-    if (!icon) return;
+function updateThemeIcon(theme) {
+    if (!themeIcon) return;
 
     if (theme === 'dark') {
-        icon.className = 'bi bi-moon-stars-fill';
+        themeIcon.className = 'bi bi-moon-stars-fill fs-5';
     } else {
-        icon.className = 'bi bi-sun-fill';
+        themeIcon.className = 'bi bi-sun-fill fs-5';
+    }
+}
+
+function updateCartIcon(theme) {
+    if (!cartIcon) return;
+
+    cartIcon.classList.remove('text-white', 'text-dark', 'text-secondary');
+
+    if (theme === 'dark') {
+        cartIcon.classList.add('text-white');
+    } else {
+        cartIcon.classList.add('text-dark');
     }
 }
