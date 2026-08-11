@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\CheckoutController;
 use App\Http\Controllers\ContactController;
 use App\Http\Controllers\HomepageController;
 use App\Http\Controllers\ProductController;
@@ -27,6 +28,8 @@ Route::controller(ShopController::class)
                 Route::patch('/update/{product}', 'updateCart')->name('update');
                 Route::delete('/remove/{product}', 'removeFromCart')->name('remove');
         });
+
+        Route::post('/checkout', [CheckoutController::class, 'store'])->name('checkout.store');
 });
 
 Route::view('/about', 'about');

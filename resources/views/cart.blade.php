@@ -14,15 +14,20 @@
             </div>
         @endif
 
+        @if(session('error'))
+                <div class="alert alert-danger">
+                    {{ session('error') }}
+                </div>
+        @endif
+
         <h1 class="mb-4">
             Shopping Cart
         </h1>
         <div class="row">
-            <div class="col-lg-8">
 
                 @if(count($products) > 0)
+                <div class="col-lg-8">
                     @foreach($products as $product)
-
                         <div class="card shadow-sm mb-3">
                             <div class="card-body">
                                 <div class="row align-items-center">
@@ -76,8 +81,52 @@
                                 </div>
                             </div>
                         </div>
-
                     @endforeach
+                </div>
+
+                <div class="col-lg-4">
+                    <div class="card shadow-sm">
+                        <div class="card-body">
+                            <h4 class="mb-4">
+                                Order Summary
+                            </h4>
+
+                            <div class="d-flex justify-content-between mb-2">
+                                <span>Products</span>
+                                <span>{{ count($products) }}</span>
+                            </div>
+
+                            <div class="d-flex justify-content-between mb-2">
+                                <span>Subtotal</span>
+                                <span>{{ $subtotal }}</span>
+                            </div>
+                            <div class="d-flex justify-content-between mb-3">
+                                <span>Shipping</span>
+                                <span>
+                                @if($shipping == 0)
+                                        Free
+                                        @else
+                                            {{ $shipping }} &euro;
+                                    @endif
+                            </span>
+                            </div>
+                            <hr>
+                            <div class="d-flex justify-content-between fs-5 fw-bold mb-4">
+                                <span>Total</span>
+                                <span>{{ $total }} &euro;</span>
+                            </div>
+
+                            <form action="{{ route('shop.checkout.store') }}" method="POST">
+                                @csrf
+
+                                <button type="submit" class="btn btn-success w-100 btn-lg">
+                                    Checkout
+                                </button>
+                            </form>
+
+                        </div>
+                    </div>
+                </div>
                 @else
                     <div class="text-center py-5">
                         <h3>Your cart is empty</h3>
@@ -85,47 +134,6 @@
                         <a href="{{ route('shop.index') }}" class="btn btn-primary mt-3">Go to Shop</a>
                     </div>
                 @endif
-
-            </div>
-            <div class="col-lg-4">
-                <div class="card shadow-sm">
-                    <div class="card-body">
-                        <h4 class="mb-4">
-                            Order Summary
-                        </h4>
-
-                        <div class="d-flex justify-content-between mb-2">
-                            <span>Products</span>
-                            <span>{{ count($products) }}</span>
-                        </div>
-
-                        <div class="d-flex justify-content-between mb-2">
-                            <span>Subtotal</span>
-                            <span>{{ $subtotal }}</span>
-                        </div>
-                        <div class="d-flex justify-content-between mb-3">
-                            <span>Shipping</span>
-                            <span>
-                                @if($shipping == 0)
-                                    Free
-                                    @else
-                                        {{ $shipping }} &euro;
-                                @endif
-                            </span>
-                        </div>
-                        <hr>
-                        <div class="d-flex justify-content-between fs-5 fw-bold mb-4">
-                            <span>Total</span>
-                            <span>{{ $total }} &euro;</span>
-                        </div>
-
-                        <button class="btn btn-success w-100 btn-lg">
-                            Checkout
-                        </button>
-
-                    </div>
-                </div>
-            </div>
         </div>
     </div>
 
