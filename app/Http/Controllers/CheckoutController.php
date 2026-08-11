@@ -37,6 +37,12 @@ class CheckoutController extends Controller
         $items = [];
 
         foreach ($products as $product) {
+            if ($cart[$product->id] > $product->amount) {
+                return redirect()
+                    ->route('shop.cart.index')
+                    ->with('error', 'There is not enough stock available.');
+            }
+
             $items[] = [
                 'product_id' => $product->id,
                 'product_name' => $product->name,
