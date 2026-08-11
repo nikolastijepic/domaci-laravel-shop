@@ -34,6 +34,12 @@ class ShoppingCartController extends Controller
         $product = Product::findOrFail($data['product_id']);
         $cart = Session::get('cart', []);
 
+        if ($data['quantity'] > $product->amount) {
+            return back()->withErrors([
+                'quantity' => 'There is not enough stock available.',
+            ]);
+        }
+
         if (isset($cart[$data['product_id']])) {
             $newQuantity = $cart[$data['product_id']] + $data['quantity'];
             if ($newQuantity > $product->amount) {
