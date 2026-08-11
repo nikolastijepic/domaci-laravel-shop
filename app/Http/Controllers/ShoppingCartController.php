@@ -29,19 +29,21 @@ class ShoppingCartController extends Controller
     }
     public function addToCart(CartAddRequest $request)
     {
-        $product = Product::findOrFail($request->product_id);
+        $data = $request->validated();
+
+        $product = Product::findOrFail($data['product_id']);
         $cart = Session::get('cart', []);
 
-        if (isset($cart[$request->product_id])) {
-            $newQuantity = $cart[$request->product_id] + $request->quantity;
+        if (isset($cart[$data['product_id']])) {
+            $newQuantity = $cart[$data['product_id']] + $data['quantity'];
             if ($newQuantity > $product->amount) {
                 return back()->withErrors([
                     'quantity' => 'There is not enough stock available.',
                 ]);
             }
-            $cart[$request->product_id] = $newQuantity;
+            $cart[$data['product_id']] = $newQuantity;
         } else {
-            $cart[$request->product_id] = $request->quantity;
+            $cart[$data['product_id']] = $data['quantity'];
         }
         Session::put('cart', $cart);
 
@@ -50,8 +52,10 @@ class ShoppingCartController extends Controller
 
     public function updateCart(CartUpdateRequest $request, $product)
     {
+        $data = $request->validated();
+
         $cart = session()->get('cart', []);
-        $cart[$product] = $request->quantity;
+        $cart[$product] = $data['quantity'];
         session()->put('cart', $cart);
 
         return redirect()->back()->with('success', 'Cart updated');
