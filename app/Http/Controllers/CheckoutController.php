@@ -68,7 +68,7 @@ class CheckoutController extends Controller
             'status' => 'pending',
             ];
 
-        $order = $this->orderRepository->createOrder($orderData, $items);
+        $order = $this->orderRepository->createOrder($orderData, $items, $cart);
 
         Session::forget('cart');
 
