@@ -11,6 +11,11 @@ class ProductRepository
         return Product::all();
     }
 
+    public function findByIds(array $ids)
+    {
+        return Product::whereIn('id', $ids)->get();
+    }
+
     public function getLatestProducts()
     {
         return Product::latest('id')
