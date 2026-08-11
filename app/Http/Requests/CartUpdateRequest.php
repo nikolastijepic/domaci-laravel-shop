@@ -25,7 +25,7 @@ class CartUpdateRequest extends FormRequest
      */
     public function rules(): array
     {
-        $product = Product::find($this->route('product'));
+        $product = $this->route('product');
 
         return [
             'quantity' => 'required|integer|min:1|max:' . $product->amount
@@ -34,7 +34,7 @@ class CartUpdateRequest extends FormRequest
 
     protected function failedValidation(Validator $validator)
     {
-        $id = $this->route('product');
+        $id = $this->route('product')->id;
 
         throw new HttpResponseException(
             redirect()->back()

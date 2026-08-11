@@ -56,12 +56,19 @@ class ShoppingCartController extends Controller
         return redirect()->route('shop.cart.index');
     }
 
-    public function updateCart(CartUpdateRequest $request, $product)
+    public function updateCart(CartUpdateRequest $request, Product $product)
     {
         $data = $request->validated();
 
+        if ($data['quantity'] > $product->amount) {
+            return back()->withErrors([
+                'quantity_'.$product->id => 'There is not enough stock available.',
+            ]);
+        }
+
         $cart = session()->get('cart', []);
-        $cart[$product] = $data['quantity'];
+        $cart[$product->id] = $data['quantity'];
+
         session()->put('cart', $cart);
 
         return redirect()->back()->with('success', 'Cart updated');
