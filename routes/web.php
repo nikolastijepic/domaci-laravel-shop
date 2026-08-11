@@ -29,7 +29,9 @@ Route::controller(ShopController::class)
                 Route::delete('/remove/{product}', 'removeFromCart')->name('remove');
         });
 
-        Route::post('/checkout', [CheckoutController::class, 'store'])->name('checkout.store');
+        Route::post('/checkout', [CheckoutController::class, 'store'])
+            ->middleware('auth')
+            ->name('checkout.store');
 });
 
 Route::view('/about', 'about');
